@@ -3,22 +3,20 @@ package com.ftp.demo;
 import org.apache.commons.net.ftp.FTPClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by geely
- */
 public class FtpUtil {
 
     private static  final Logger logger = LoggerFactory.getLogger(com.ftp.demo.FtpUtil.class);
-
-    private static String ftpIp = "49.233.201.62";
-    private static String ftpUser = "zhou";
-    private static String ftpPass ="bing";
 
     public FtpUtil(String ip, int port, String user, String pwd){
         this.ip = ip;
@@ -26,14 +24,13 @@ public class FtpUtil {
         this.user = user;
         this.pwd = pwd;
     }
-    public static boolean uploadFile(List<File> fileList) throws IOException {
-        FtpUtil ftpUtil = new FtpUtil(ftpIp,21,ftpUser,ftpPass);
+    public static boolean uploadFile(List<File> fileList, FtpConfig ftpConfig) throws IOException {
+        FtpUtil ftpUtil = new FtpUtil(ftpConfig.getIp(),21,ftpConfig.getUser(),ftpConfig.getPass());
         logger.info("开始连接ftp服务器");
         boolean result = ftpUtil.uploadFile("img",fileList);
         logger.info("开始连接ftp服务器,结束上传,上传结果:{}",result);
         return result;
     }
-
 
     private boolean uploadFile(String remotePath,List<File> fileList) throws IOException {
         boolean uploaded = true;

@@ -3,6 +3,7 @@ package com.ftp.demo;
 import org.assertj.core.util.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,8 +15,7 @@ import java.util.UUID;
 public class FileServiceImpl implements IFileService {
     private Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
 
-
-    public String upload(MultipartFile file, String path){
+    public String upload(MultipartFile file, String path,FtpConfig ftpConfig){
         String fileName = file.getOriginalFilename();
         //扩展名
         //abc.jpg
@@ -32,7 +32,7 @@ public class FileServiceImpl implements IFileService {
         try {
             file.transferTo(targetFile);
             //文件已经上传成功了
-            FtpUtil.uploadFile(Lists.newArrayList(targetFile));
+              FtpUtil.uploadFile(Lists.newArrayList(targetFile),ftpConfig);
             //已经上传到ftp服务器上
             targetFile.delete();
         } catch (IOException e) {
@@ -41,6 +41,6 @@ public class FileServiceImpl implements IFileService {
         }
         //A:abc.jpg
         //B:abc.jpg
-        return targetFile.getName();
+        return  targetFile.getName();
     }
 }
