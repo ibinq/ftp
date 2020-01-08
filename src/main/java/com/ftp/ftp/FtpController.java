@@ -1,5 +1,6 @@
-package com.ftp.demo;
+package com.ftp.ftp;
 
+import com.ftp.common.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,12 +22,12 @@ public class FtpController {
 
     @RequestMapping("/upload")
     @ResponseBody
-    public String upload(HttpSession session,@RequestParam(value = "file",required = false) MultipartFile file,HttpServletRequest request){
+    public Result upload(HttpSession session, @RequestParam(value = "file",required = false) MultipartFile file, HttpServletRequest request){
             String path = request.getSession().getServletContext().getRealPath("upload");
             String targetFileName = iFileService.upload(file,path,ftpConfig);
             FtpConfig config = new FtpConfig();
             String url = config.getIp() + targetFileName;
-            return url;
+            return Result.success(url);
     }
 
 }

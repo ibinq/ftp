@@ -1,4 +1,4 @@
-package com.ftp.demo;
+package com.ftp.ftp;
 
 import org.springframework.web.multipart.MultipartFile;
 

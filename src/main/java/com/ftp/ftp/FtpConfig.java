@@ -1,4 +1,4 @@
-package com.ftp.demo;
+package com.ftp.ftp;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,13 +1,8 @@
-package com.ftp.demo;
+package com.ftp.ftp;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,7 +11,7 @@ import java.util.List;
 
 public class FtpUtil {
 
-    private static  final Logger logger = LoggerFactory.getLogger(com.ftp.demo.FtpUtil.class);
+    private static  final Logger logger = LoggerFactory.getLogger(com.ftp.ftp.FtpUtil.class);
 
     public FtpUtil(String ip, int port, String user, String pwd){
         this.ip = ip;
